@@ -1,8 +1,8 @@
 package sekwah.mods.narutomod.settings;
 
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import sekwah.mods.narutomod.client.gui.GuiChakraAndStaminaBar;
 
 import java.util.UUID;

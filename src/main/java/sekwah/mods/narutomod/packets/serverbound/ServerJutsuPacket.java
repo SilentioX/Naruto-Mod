@@ -1,12 +1,12 @@
 package sekwah.mods.narutomod.packets.serverbound;
 
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
+import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import sekwah.mods.narutomod.packets.NarutoMessage;
 import sekwah.mods.narutomod.packets.ServerPacketHandler;
-import cpw.mods.fml.common.network.simpleimpl.IMessage;
-import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
-import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 
-public class ServerJutsuPacket extends NarutoMessage implements IMessageHandler<ServerJutsuPacket, IMessage> {
+public class ServerJutsuPacket extends NarutoMessage implements IMessageHandler<ServerJutsuPacket, IMessage>, IMessage {
     public ServerJutsuPacket(byte[] payload) {
         this.packet = payload;
         this.packetLength = payload.length;

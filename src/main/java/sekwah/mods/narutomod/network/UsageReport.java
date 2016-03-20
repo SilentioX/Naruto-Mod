@@ -11,7 +11,7 @@ import java.util.*;
 
 public class UsageReport {
 
-    private final Timer threadTrigger = new Timer("UsageReport Timer", true);
+        private final Timer threadTrigger = new Timer("UsageReport Timer", true);
 
     private final URL reportURL;
 
