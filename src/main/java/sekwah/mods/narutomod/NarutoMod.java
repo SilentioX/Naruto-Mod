@@ -128,7 +128,9 @@ public class NarutoMod {
 
         NarutoEntitys.addEntities(this);
 
-        NarutoEffects.editBasePotion();
+        NarutoEffects.addPotions();
+
+        //NarutoEffects.editBasePotion();
 
         NarutoSettings.preInit(event);
 

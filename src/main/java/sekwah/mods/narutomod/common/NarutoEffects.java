@@ -1,5 +1,8 @@
 package sekwah.mods.narutomod.common;
 
+import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import sekwah.mods.narutomod.NarutoMod;
 import net.minecraft.potion.Potion;
 import sekwah.mods.narutomod.common.potioneffects.PotionChakraRestore;
@@ -12,6 +15,8 @@ import java.lang.reflect.Modifier;
  * Created by Alastair on 02/02/2015.
  */
 public class NarutoEffects {
+
+    // TODO recode to take into account new potion system forge has put in place GameData.getPotionRegistry();
 
     public static Potion chakraRestore;
 
@@ -27,6 +32,7 @@ public class NarutoEffects {
         for (Field f : Potion.class.getDeclaredFields()) {
             f.setAccessible(true);
             try {
+                // Check if same field now or what has changed
                 if (f.getName().equals("potionTypes") || f.getName().equals("field_76425_a")) {
                     Field modfield = Field.class.getDeclaredField("modifiers");
                     modfield.setAccessible(true);
@@ -55,6 +61,11 @@ public class NarutoEffects {
 
     /**
      * Potion effects and stuff
+     *
+     * Try toying with some effects such as the spectral arrow one but make it change colour based on chakra. Then
+     * look at making it so its if you have it you see others in an area where it fades out the further you are.
+     * (Look at it making the whole body glow a little possibly, just make it look cool)
+     *
      */
     public static void addEffects(){
         int currentID = potionStart;
@@ -63,4 +74,11 @@ public class NarutoEffects {
 
     }
 
+    // There is no method through GameRegistry for potions atm(the decap is to warn for adding blocks)
+    // TODO check if the potions need to be extended and other stuff that needs to be done first.
+    // Look at how the default ones are registered. and how big the array is.
+    public static void addPotions() {
+        FMLControlledNamespacedRegistry<Potion> potionRegistry = GameData.getPotionRegistry();
+        //potionRegistry.register();
+    }
 }

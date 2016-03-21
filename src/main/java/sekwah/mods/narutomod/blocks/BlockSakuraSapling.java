@@ -1,15 +1,17 @@
 package sekwah.mods.narutomod.blocks;
 
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.IGrowable;
+import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import sekwah.mods.narutomod.NarutoMod;
 import sekwah.mods.narutomod.worldgeneration.WorldGenSakuraTrees;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.event.terraingen.TerrainGen;
@@ -17,20 +19,23 @@ import sekwah.mods.narutomod.worldgeneration.WorldGenBigSakuraTree;
 
 import java.util.Random;
 
-public class BlockSakuraSapling extends BlockBush {
+public class BlockSakuraSapling extends BlockBush implements IGrowable {
+
+    public static final PropertyEnum<BlockPlanks.EnumType> TYPE = PropertyEnum.<BlockPlanks.EnumType>create("type", BlockPlanks.EnumType.class);
+    public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
+    protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0.0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
     // TODO fix because extending flower is breaking at the moment
-    protected BlockSakuraSapling(int par1) {
-        super(Material.plants);
-        float f = 0.4F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
+    protected BlockSakuraSapling() {
+        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockPlanks.EnumType.OAK).withProperty(STAGE, Integer.valueOf(0)));
+        this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT)
     public IIcon getIcon(int p_149691_1_, int p_149691_2_)
     {
         return blockIcon;
-    }
+    }*/
 
     /**
      * Ticks the block if it's been scheduled

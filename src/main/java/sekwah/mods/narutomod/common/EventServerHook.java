@@ -1,15 +1,16 @@
 package sekwah.mods.narutomod.common;
 
-import sekwah.mods.narutomod.NarutoMod;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import sekwah.mods.narutomod.blocks.BlockSakuraSapling;
 import sekwah.mods.narutomod.blocks.NarutoBlocks;
 import sekwah.mods.narutomod.player.extendedproperties.PlayerInfo;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
-import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
@@ -40,13 +41,15 @@ public class EventServerHook {
 
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-        Block block = event.world.getBlock(event.x, event.y, event.z);
+        //Block block = event.world.getBlock(event.x, event.y, event.z);
+
+        Block block = event.block.getBlock();
 
         if (side == Side.SERVER) {
             if (block == NarutoBlocks.Sakura_Sapling) {
                 ((BlockSakuraSapling) NarutoBlocks.Sakura_Sapling).markOrGrowMarked(event.world, event.x, event.y, event.z, event.world.rand);
 
-                event.setResult(Result.ALLOW);
+                event.setResult(Event.Result.ALLOW);
                 event.setCanceled(true);
                 return;
             }
@@ -62,26 +65,46 @@ public class EventServerHook {
         }
     }
 
+    private static final DataParameter<String> JUTSU_POSE = EntityDataManager.<String>createKey(EntityPlayer.class, DataSerializers.STRING);
+    private static final DataParameter<String> CLAN = EntityDataManager.<String>createKey(EntityPlayer.class, DataSerializers.STRING);
+
+    // TODO Try monster attributes or whatever for the max chakra, make it more like maxhealth on player, could solve sending unneeded data
+    private static final DataParameter<Float> MAX_CHAKRA = EntityDataManager.<Float>createKey(EntityPlayer.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> CHAKRA = EntityDataManager.<Float>createKey(EntityPlayer.class, DataSerializers.FLOAT);
+
+    private static final DataParameter<String> CURRENT_POSE = EntityDataManager.<String>createKey(EntityPlayer.class, DataSerializers.STRING);
+
+
+    // TODO make saving system for clans and other stuff
     @SubscribeEvent
     public void handleConstruction(EntityConstructing event) {
 
 
         if (event.entity instanceof EntityPlayer) {
-            DataWatcher dw = event.entity.getDataWatcher();
-            dw.addObject(20, "default"); // jutsu pose id (such as charging)
-            dw.addObject(21, "Undefined"); // current clan
+            EntityDataManager dm = event.entity.getDataManager();
+
+            dm.register(JUTSU_POSE, "default");
+            dm.register(CLAN, "Undefined");
+
+            dm.register(MAX_CHAKRA, 100f);
+            dm.register(CHAKRA, 100f);
+
+            dm.register(CURRENT_POSE, "default");
+
+            /*dm.addObject(20, "default"); // jutsu pose id (such as charging)
+            dm.addObject(21, "Undefined"); // current clan
             // current player
-            dw.addObject(22, 50);
+            dm.addObject(22, 50);
             //dw.addObject(22, 50); // max amount of stamina
             //dw.addObject(23, 50); // amount of chakra
-            dw.addObject(24, 0); // amount of kunai in player
+            dm.addObject(24, 0); // amount of kunai in player
             // Float.valueOf(0)
-            dw.addObject(25, Float.valueOf(0)); // animationTick (used to add smooth animation for players to different poses, is currently edited by the client :P)
-            dw.addObject(26, "default"); // lastpose (so the smooth animation works between poses)
-            dw.addObject(27, "default"); // poseClient (the last pose the client updated(so it can change the animationTick back to 0))
-            //dw.addObject(27, 0); // could also possibly add a kunai throw tick.
+            dm.addObject(25, Float.valueOf(0)); // animationTick (used to add smooth animation for players to different poses, is currently edited by the client :P)
+            dm.addObject(26, "default"); // lastpose (so the smooth animation works between poses)
+            dm.addObject(27, "default"); // poseClient (the last pose the client updated(so it can change the animationTick back to 0))
+            //dw.addObject(27, 0); // could also possibly add a kunai throw tick.*/
 
-            event.entity.registerExtendedProperties(PlayerInfo.IDENTIFIER, new PlayerInfo((EntityPlayer) event.entity));
+            //event.entity.registerExtendedProperties(PlayerInfo.IDENTIFIER, new PlayerInfo((EntityPlayer) event.entity));
 
             /*Side side = FMLCommonHandler.instance().getEffectiveSide();
             if (side == Side.CLIENT) {
