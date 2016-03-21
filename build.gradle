@@ -58,6 +58,13 @@ task sourceJar(type: Jar) {
     classifier = 'src'
 }
 
+task buildAll(type: GradleBuild) {    
+    description "Runs all compile tasks(Doesn't build the fully compiled yet)"    
+    devJar.execute()    
+    sourceJar.execute()    
+}  
+
+
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
