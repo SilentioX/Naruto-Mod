@@ -1,15 +1,15 @@
-naruto.gui.options.title=Opciones del mod de Naruto
-naruto.gui.done=Listo
-naruto.gui.firstPerson=Primera persona
+naruto.gui.options.title=Opciones del Mod
+naruto.gui.done=Hecho
+naruto.gui.firstPerson=Primera Persona
 naruto.gui.on=Si
 naruto.gui.off=No
 naruto.gui.jutsutoggle=Jutsu
 naruto.gui.chakraGUIOffset=Offset
-naruto.gui.generalOptions=Opciones generales
+naruto.gui.generalOptions=Opciones Generales
 naruto.gui.chakraGui=Chakra GUI
 naruto.gui.chakraGUICorner=Esquina del GUI
-naruto.gui.jutsuSettings=Opciones de Jutsu
-naruto.gui.jutsuDelay=Retraso(ticks)
+naruto.gui.jutsuSettings=Configuracion de Jutsu
+naruto.gui.jutsuDelay=Delay(ticks)
 
 
 item.Kunai.name=Kunai
@@ -37,7 +37,7 @@ item.Ramen.name=Ramen
         
 item.gunbai.name=Gunbai
 item.gunbai.desc.line1=Tristemente, esto es una copia barata
-item.gunbai.desc.line2=de la arma legendaria.
+item.gunbai.desc.line2=del arma legendaria.
         
 item.Bokken.name=Bokken
         
@@ -67,7 +67,7 @@ item.backScroll.Black.name=Pergamino negro
 
 item.headProtector=Banda ninja
 
-item.headProtector.HiddenInTheTrees.name=Banda ninja de la aldea de la hoja
+item.headProtector.HiddenInTheTrees.name=Banda ninja de la Aldea de la Hoja
 item.headProtector.Custard.name=Banda ninja de crema
 
 item.backBokken.name=Bokken envainado
